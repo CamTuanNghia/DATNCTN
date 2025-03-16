@@ -1,0 +1,329 @@
+﻿/*********************************
+12. Login, register
+*********************************/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Arial;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins';
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.overlay {
+    width: 170%;
+    height: 170%;
+    /* position: relative; */
+    position: absolute;
+    background-image: url(banner.jpeg);
+    /* backdrop-filter: blur(1px); */
+    z-index: 2;
+    filter: blur(13px);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.login-container {
+    position: relative;
+    width: 1090px;
+    z-index: 3;
+    height: 580px;
+    background-image: url(banner.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 100px;
+    color: white;
+    font-weight: 300;
+}
+
+    .login-container > div:first-child {
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 100px 0;
+        padding-bottom: 70px;
+    }
+.register-container {
+    position: relative;
+    width: 2090px;
+    z-index: 3;
+    height: 1080px;
+    background-image: url(banner.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 100px;
+    color: white;
+    font-weight: 300;
+}
+
+    .register-container > div:first-child {
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 100px 0;
+        padding-bottom: 70px;
+    }
+.logo span {
+    font-size: 23px;
+}
+
+.logo i {
+    color: rgb(255, 255, 255);
+    font-size: 34px;
+}
+
+.register > div:first-child {
+    font-size: 32px;
+    max-width: 300px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.register > p {
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgb(197, 202, 206);
+    margin-bottom: 24px;
+}
+
+.register .social {
+    margin-left: -20px;
+}
+
+    .register .social a {
+        margin-left: 20px;
+    }
+
+    .register .social i {
+        color: white;
+        font-size: 15px;
+    }
+
+    .register .social a:hover i {
+        color: red;
+    }
+
+.form-login {
+    width: 45%;
+    max-width: 48%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background-color: rgba(51, 49, 49, 0.709);
+    /* display: flex; */
+    /* align-items: center; */
+    padding: 100px 40px;
+}
+
+    .form-login .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 40px;
+    }
+
+        .form-login .form-group.f-term {
+            display: flex;
+            flex-direction: row !important;
+            align-items: center;
+        }
+.form-register {
+    width: 72%;
+    max-width: 80%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background-color: rgba(51, 49, 49, 0.709);
+    /* display: flex; */
+    /* align-items: center; */
+    padding: 100px 40px;
+}
+
+    .form-register .form-groupr {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 40px;
+    }
+
+        .form-register .form-groupr.f-termr {
+            display: flex;
+            flex-direction: row !important;
+            align-items: center;
+        }
+.f-term label {
+    margin-top: 10px;
+    margin-left: 7px;
+}
+
+    .f-term label a {
+        margin-left: 3px;
+        color: rgb(228, 220, 220);
+        /* line-height: 1.2; */
+        font-size: 13px;
+        text-underline-position: under;
+    }
+
+        .f-term label a:hover {
+            color: red;
+        }
+/* Làm trong suốt ô nhập tài khoản và mật khẩu */
+.form-login .form-group input {
+    background-color: transparent; /* Làm nền trong suốt */
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.8); /* Đường kẻ ngang màu trắng */
+    margin-top: 10px;
+    color: white;
+    font-size: 17px;
+    padding: 5px 0;
+    width: 100%;
+}
+
+    /* Placeholder màu trắng mờ */
+    .form-login .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+        opacity: 1;
+    }
+
+    /* Khi focus vào ô nhập */
+    .form-login .form-group input:focus {
+        border-bottom: 2px solid #00aaff; /* Đổi màu xanh da trời khi focus */
+    }
+
+
+.spacer {
+    width: 100%;
+    height: 50px;
+}
+
+
+.sign-up input[type="submit"] {
+    background-color: #007BFF; /* Màu xanh da trời */
+    color: white;
+    width: 180px; /* Tăng kích thước */
+    height: 45px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    border-radius: 25px; /* Bo tròn góc */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .sign-up input[type="submit"]:hover {
+        background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+    }
+
+.clw {
+    color: white;
+   
+}
+
+.logo_container {
+    position: absolute;
+    left: 15px;
+}
+
+    .logo_container p {
+        font-size: 36px;
+        color: #1e1e27;
+        font-weight: 700;
+        font-family: Impact;
+        color: #E60000;
+    }
+
+        .logo_container p span {
+            color: #000000;
+            font-size:36px;
+        }
+/* rememberpass*/
+
+checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Điều chỉnh khoảng cách giữa checkbox và label */
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin: 0;
+    width: 16px; /* Kích thước checkbox mặc định */
+    height: 16px;
+}
+
+.checkbox-container label {
+    font-size:12px;
+    margin: 0;
+    cursor: pointer;
+}
