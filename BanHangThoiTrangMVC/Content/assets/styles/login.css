@@ -110,29 +110,7 @@ body {
         padding: 100px 0;
         padding-bottom: 70px;
     }
-.register-container {
-    position: relative;
-    width: 2090px;
-    z-index: 3;
-    height: 1080px;
-    background-image: url(banner.jpeg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 100px;
-    color: white;
-    font-weight: 300;
-}
 
-    .register-container > div:first-child {
-        max-width: 800px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 100px 0;
-        padding-bottom: 70px;
-    }
 .logo span {
     font-size: 23px;
 }
@@ -142,36 +120,7 @@ body {
     font-size: 34px;
 }
 
-.register > div:first-child {
-    font-size: 32px;
-    max-width: 300px;
-    line-height: 1.3;
-    margin-bottom: 20px;
-}
 
-.register > p {
-    font-size: 14px;
-    line-height: 1.4;
-    color: rgb(197, 202, 206);
-    margin-bottom: 24px;
-}
-
-.register .social {
-    margin-left: -20px;
-}
-
-    .register .social a {
-        margin-left: 20px;
-    }
-
-    .register .social i {
-        color: white;
-        font-size: 15px;
-    }
-
-    .register .social a:hover i {
-        color: red;
-    }
 
 .form-login {
     width: 45%;
@@ -192,29 +141,6 @@ body {
     }
 
         .form-login .form-group.f-term {
-            display: flex;
-            flex-direction: row !important;
-            align-items: center;
-        }
-.form-register {
-    width: 72%;
-    max-width: 80%;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    background-color: rgba(51, 49, 49, 0.709);
-    /* display: flex; */
-    /* align-items: center; */
-    padding: 100px 40px;
-}
-
-    .form-register .form-groupr {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 40px;
-    }
-
-        .form-register .form-groupr.f-termr {
             display: flex;
             flex-direction: row !important;
             align-items: center;

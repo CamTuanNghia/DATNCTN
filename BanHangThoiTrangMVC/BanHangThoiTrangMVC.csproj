@@ -494,6 +494,7 @@
     <Content Include="Content\assets\styles\contact_styles.css" />
     <Content Include="Content\assets\styles\login.css" />
     <Content Include="Content\assets\styles\main_styles.css" />
+    <Content Include="Content\assets\styles\register.css" />
     <Content Include="Content\assets\styles\responsive.css" />
     <Content Include="Content\assets\styles\single_responsive.css" />
     <Content Include="Content\assets\styles\single_styles.css" />
