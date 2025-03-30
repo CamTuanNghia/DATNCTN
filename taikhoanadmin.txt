@@ -1,2 +1,0 @@
-username: admin@gmail.com
-pass: 123123
