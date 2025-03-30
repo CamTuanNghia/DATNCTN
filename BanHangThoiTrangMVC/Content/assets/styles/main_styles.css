@@ -81,7 +81,6 @@ p
 	font-weight: 500;
 	color: #989898;
 	-webkit-font-smoothing: antialiased;
-	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 p a
@@ -92,7 +91,6 @@ p a
 	border-bottom: solid 2px #fde0db;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
@@ -100,7 +98,6 @@ a, a:hover, a:visited, a:active, a:link
 {
 	text-decoration: none;
 	-webkit-font-smoothing: antialiased;
-	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 p a:active
@@ -136,7 +133,6 @@ h1, h2, h3, h4, h5, h6
 {
 	color: #282828;
 	-webkit-font-smoothing: antialiased;
-	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 h1::selection,
@@ -172,7 +168,7 @@ h6::selection
 	font-weight: 500;
 	color: #777777 !important;
 }
-::input-placeholder
+::placeholder
 {
 	font-size: 16px !important;
 	font-weight: 500;
@@ -217,7 +213,6 @@ section
 {
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
@@ -225,7 +220,6 @@ section
 {
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -233,7 +227,6 @@ section
 {
 	-webkit-transition: all 400ms ease;
 	-moz-transition: all 400ms ease;
-	-ms-transition: all 400ms ease;
 	-o-transition: all 400ms ease;
 	transition: all 400ms ease;
 }
@@ -241,7 +234,6 @@ section
 {
 	-webkit-transition: all 500ms ease;
 	-moz-transition: all 500ms ease;
-	-ms-transition: all 500ms ease;
 	-o-transition: all 500ms ease;
 	transition: all 500ms ease;
 }
@@ -334,7 +326,6 @@ section
 	box-shadow: 0 0 25px rgba(63, 78, 100, 0.15);
 	-webkit-transition: opacity 0.3s ease;
 	-moz-transition: opacity 0.3s ease;
-	-ms-transition: opacity 0.3s ease;
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -353,7 +344,6 @@ section
 	text-transform: uppercase;
 	-webkit-transition: opacity 0.3s ease;
 	-moz-transition: opacity 0.3s ease;
-	-ms-transition: opacity 0.3s ease;
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -416,7 +406,6 @@ section
 	box-shadow: 0 0 25px rgba(63, 78, 100, 0.15);
 	-webkit-transition: opacity 0.3s ease;
 	-moz-transition: opacity 0.3s ease;
-	-ms-transition: opacity 0.3s ease;
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -434,7 +423,6 @@ section
 	font-size: 13px;
 	-webkit-transition: opacity 0.3s ease;
 	-moz-transition: opacity 0.3s ease;
-	-ms-transition: opacity 0.3s ease;
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -495,7 +483,6 @@ section
 	box-shadow: 0 0 25px rgba(63, 78, 100, 0.15);
 	-webkit-transition: opacity 0.3s ease;
 	-moz-transition: opacity 0.3s ease;
-	-ms-transition: opacity 0.3s ease;
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -513,7 +500,6 @@ section
 	font-size: 14px;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -562,7 +548,6 @@ section
 	padding: 20px;
 	-webkit-transition: color 0.3s ease;
 	-moz-transition: color 0.3s ease;
-	-ms-transition: color 0.3s ease;
 	-o-transition: color 0.3s ease;
 	transition: color 0.3s ease;
 }
@@ -595,7 +580,6 @@ section
 	color: #1e1e27;
 	-webkit-transition: color 0.3s ease;
 	-moz-transition: color 0.3s ease;
-	-ms-transition: color 0.3s ease;
 	-o-transition: color 0.3s ease;
 	transition: color 0.3s ease;
 }
@@ -644,7 +628,6 @@ section
 	color: #1e1e27;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -663,7 +646,6 @@ section
 	z-index: 10;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -683,7 +665,6 @@ section
 	pointer-events: none;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
@@ -701,7 +682,6 @@ section
 	color: #1e1e27;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -756,7 +736,6 @@ section
 	z-index: 1;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -775,7 +754,6 @@ section
 	text-transform: uppercase;
 	-webkit-transition: opacity 0.3s ease;
 	-moz-transition: opacity 0.3s ease;
-	-ms-transition: opacity 0.3s ease;
 	-o-transition: opacity 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -847,7 +825,6 @@ section
 	display: -webkit-inline-box;
 	display: -moz-inline-box;
 	display: -ms-inline-flexbox;
-	display: -webkit-inline-flex;
 	display: inline-flex;
 	flex-direction: column;
 	justify-content: center;
@@ -858,7 +835,6 @@ section
 	border-radius: 3px;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -927,7 +903,6 @@ section
 	width: 100%;
 	-webkit-transition: color 0.3s ease;
 	-moz-transition: color 0.3s ease;
-	-ms-transition: color 0.3s ease;
 	-o-transition: color 0.3s ease;
 	transition: color 0.3s ease;
 }
@@ -1024,7 +999,6 @@ section
 	border-radius: 3px;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -1094,7 +1068,7 @@ section
 }
 .product_bubble span
 {
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: 600;
 	color: #FFFFFF;
 }
@@ -1152,7 +1126,6 @@ section
 	opacity: 0;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
@@ -1211,11 +1184,10 @@ section
 6. Deal of the week
 *********************************/
 
-.deal_ofthe_week
-{
+.deal_ofthe_week {
 	width: 100%;
 	margin-top: 41px;
-	background: #f2f2f2;
+	background: #E8E4F2 !important;
 }
 .deal_ofthe_week_img
 {
@@ -1356,7 +1328,6 @@ section
 	opacity: 0;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -1482,7 +1453,6 @@ section
 	transform: scale(0.7);
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -1593,7 +1563,7 @@ section
 	font-weight: 400;
 	color: #b9b4c7 !important;
 }
-#newsletter_email::input-placeholder
+#newsletter_email::placeholder
 {
 	font-size: 14px !important;
 	font-weight: 400;
@@ -1644,7 +1614,6 @@ section
 	line-height: 30px;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 }
@@ -1670,7 +1639,6 @@ section
 	color: #51545f;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
 	-o-transition: all 300ms ease;
 	transition: all 300ms ease;
 	padding: 10px;

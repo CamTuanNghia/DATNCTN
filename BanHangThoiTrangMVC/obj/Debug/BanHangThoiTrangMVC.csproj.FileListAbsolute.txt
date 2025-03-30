@@ -503,10 +503,10 @@ C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\bin\System.Web.Razor.xm
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\bin\System.Web.WebPages.xml
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\bin\System.Web.WebPages.Deployment.xml
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\bin\System.Web.WebPages.Razor.xml
-C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.AssemblyReference.cache
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.Migrations.InitialCreate.resources
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.GenerateResource.cache
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.CoreCompileInputs.cache
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.CopyComplete
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.dll
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.pdb
+C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.AssemblyReference.cache

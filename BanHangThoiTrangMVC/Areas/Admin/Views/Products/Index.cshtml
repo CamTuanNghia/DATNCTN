@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
                     <li class="breadcrumb-item active">@ViewBag.Title</li>
                 </ol>
             </div>
@@ -46,8 +46,8 @@
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
-                <a href="/admin/products/add" class="btn btn-primary">Thêm Mới</a>
-                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa All</a>
+                <a href="/admin/products/add" class="btn btn-primary">Thêm mới</a>
+                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa mục đã chọn</a>
             </div>
         </div>
         <div class="card-body">
@@ -66,17 +66,20 @@
             </div>
             <table class="table table-hover">
                 <thead>
-                <th><input type="checkbox" id="SelectAll" /></th>
-                <th>STT</th>
-                <th>Hình Ảnh</th>
-                <th>Tên Sản Phẩm</th>
-                <th>Danh Mục</th>
-                <th>Số Lượng</th>
-                <th>Giá</th>
-                <th>Ngày Tạo</th>
-                <th>Home</th>
-                <th>Sale</th>
-                <th>Hiển Thị</th>
+                    <tr>
+                        <th><input type="checkbox" id="SelectAll" /></th>
+                        <th>Trạng thái</th>
+                        <th>STT</th>
+                        <th>Hình Ảnh</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Danh Mục</th>
+                        <th>Số Lượng</th>
+                        <th>Giá</th>
+                        <th>Ngày Tạo</th>
+                        <th>Hiển thị</th>
+                        <th>Khuyến mãi</th>
+
+                    </tr>
                 </thead>
                 <tbody>
                     @if (Model != null && Model.Any())
@@ -84,43 +87,56 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
-                            var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
-                            var strCheckHome = item.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
-                            var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
-                            <tr id="trow_@item.Id">
-                                <td><input type="checkbox" class="cbkItem" value="@item.Id"/></td>
-                                <td>@i</td>
-                                <td><img class="imgproduct" data-id="@item.Id" src="@item.ProductImages.FirstOrDefault(x=>x.IsDefault).Image" width="50" /></td>
-                                <td>@item.Title</td>
-                                <td>@item.ProductCategory.Title</td>
-                                <td><a style="margin:25px;">@item.Quantity</a></td>
-                                <td>@BanHangThoiTrangMVC.Common.Common.FormatNumber(item.Price, 0)</td>
-                                <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
-                                <td>
-                                    <a href='#' data-id="@item.Id" class="btnHome" style="margin:20px;">@Html.Raw(strCheckHome)</a>
-                                </td>
-                                <td>
-                                    <a href='#' data-id="@item.Id" class="btnSale" style="margin:20px;">@Html.Raw(strCheckSale)</a>
-                                </td>
-                                <td>
-                                    <a href='#' data-id="@item.Id" class="btnActive" style="margin:20px;">@Html.Raw(strCheck)</a>
-                                </td>
-                                <td>
-                                    <a href="/admin/products/edit/@item.Id" class="btn btn-sm btn btn-primary">Sửa</a>
-                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                                </td>
-                            </tr>
-                            i++;
-                        }
+                        var strCheckHome = item.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                        var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                    <tr id="trow_@item.Id">
+                        <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
+                        <td>
+                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" class="custom-control-input"
+                                       id="customSwitchActive_@item.Id"
+                                       @(item.IsActive ? "checked" : "")
+                                       onchange="toggleIsActive(@item.Id, this.checked)" />
+                                <label class="custom-control-label" for="customSwitchActive_@item.Id"></label>
+                            </div>
+                        </td>
+                        <td>@i</td>
+                        <td>
+                            @{
+                                var defaultImage = item.ProductImages.FirstOrDefault(x => x.IsDefault);
+                            }
+                            @if (defaultImage != null && !string.IsNullOrEmpty(defaultImage.Image))
+                            {
+                                <img class="imgproduct" data-id="@item.Id" src="@defaultImage.Image" style="width: 100px; height: 100px; border:2px solid black" />
+                            }
+                        </td>
+                        <td>@item.Title</td>
+                        <td>@item.ProductCategory.Title</td>
+                        <td><a style="margin:25px;">@item.Quantity</a></td>
+                        <td>@BanHangThoiTrangMVC.Common.Common.FormatNumber(item.Price, 0)</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a href='#' data-id="@item.Id" class="btnHome" style="margin:20px;">@Html.Raw(strCheckHome)</a>
+                        </td>
+                        <td>
+                            <a href='#' data-id="@item.Id" class="btnSale" style="margin:20px;">@Html.Raw(strCheckSale)</a>
+                        </td>
+                        <td>
+                            <a href="/admin/products/edit/@item.Id" class="btn btn-sm btn btn-primary">Sửa</a>
+                            <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                        </td>
+                    </tr>
+                        i++;
                     }
-                    else
-                    {
-                        <tr>
-                            <td colspan="8">Không Có Bản Ghi Nào</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8">Không Có Bản Ghi Nào</td>
+                    </tr>
+                }
+                    </tbody>
+                </table>
 
             <div class="row">
                 <div class="col-6"></div>
@@ -233,31 +249,24 @@
                 }
             });
 
-            $('body').on('click', '.btnActive', function (e) {
-                e.preventDefault();
-                var btn = $(this);
-                var id = btn.data("id");
-                var conf = confirm('Bạn Có Muốn Chỉnh Sửa Trạng Thái Này ?');
-                if (conf == true) {
-                    $.ajax({
-                        url: '/admin/products/IsActive',
-                        type: 'POST',
-                        data: { id: id },
-                        success: function (rs) {
-                            if (rs.success) {
-                                if (rs.IsActive) {
-                                    btn.html("<i class='fa fa-check text-success'></i>");
-                                }
-                                else {
-                                    btn.html("<i class='fas fa-times text-danger'></i>");
-                                }
-                            }
-
+            function toggleIsActive(id, isActive) {
+                const csrfToken = $('input[name="__RequestVerificationToken"]').val();
+                fetch(`/admin/products/ToggleActive/${id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken
+                    },
+                    body: JSON.stringify({ isActive: isActive })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert("Cập nhật trạng thái thất bại.");
                         }
-                    });
-                }
-
-            });
+                    })
+                    .catch(error => console.error("Lỗi:", error));
+            }
 
             $('body').on('click', '.btnHome', function (e) {
                 e.preventDefault();
@@ -309,6 +318,10 @@
                     });
                 }
 
+            });
+            $('body').on('change', '[id^="customSwitchActive_"]', function () {
+                const id = $(this).attr('id').split('_')[1];
+                toggleIsActive(id, this.checked);
             });
         });
     </script>
