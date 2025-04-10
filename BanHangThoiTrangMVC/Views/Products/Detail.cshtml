@@ -83,23 +83,36 @@
                         <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
                     </ul>
                     @*<div class="product_color">
-                        <span>Select Color:</span>
-                        <ul>
-                            <li style="background: #e54e5d"></li>
-                            <li style="background: #252525"></li>
-                            <li style="background: #60b3f3"></li>
-                        </ul>
-                    </div>*@
+            <span>Select Color:</span>
+            <ul>
+                <li style="background: #e54e5d"></li>
+                <li style="background: #252525"></li>
+                <li style="background: #60b3f3"></li>
+            </ul>
+        </div>*@
                     <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-                        <span>Quantity:</span>
-                        <div class="quantity_selector">
-                            <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                            <span id="quantity_value">1</span>
-                            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        <span>Số lượng:</span>
+
+                        <div class="quantity_selector d-flex align-items-center ms-2">
+                            <span class="minus btn btn-light p-1" style="width: 30px; text-align: center; cursor: pointer;">
+                                <i class="fa fa-minus"></i>
+                            </span>
+
+                            <input type="number" id="quantity_value" class="form-control mx-1 text-center"
+                                   value="1" min="1" style="width: 50px; height: 35px; padding: 0;" />
+
+                            <span class="plus btn btn-light p-1" style="width: 30px; text-align: center; cursor: pointer;">
+                                <i class="fa fa-plus"></i>
+                            </span>
                         </div>
-                        <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@Model.Id">add to cart</a></div>
-                        @*<div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>*@
+
+                        <div class="red_button add_to_cart_button ms-3 mt-2 mt-sm-0">
+                            <a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm vào giỏ hàng</a>
+                        </div>
                     </div>
+
+
+
                 </div>
             </div>
         </div>
@@ -114,9 +127,9 @@
                 <div class="col">
                     <div class="tabs_container">
                         <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
-                            <li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
+                            <li class="tab active" data-active-tab="tab_1"><span>Mô tả</span></li>
                             @*<li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>*@
-                            <li class="tab" data-active-tab="tab_3"><span>Reviews (2)</span></li>
+                            <li class="tab" data-active-tab="tab_3"><span> (2)</span></li>
                         </ul>
                     </div>
                 </div>
@@ -244,4 +257,37 @@
 
 @section scripts{
     <script src="~/Content/assets/js/single_custom.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const minusBtn = document.querySelector(".minus");
+            const plusBtn = document.querySelector(".plus");
+            const quantityInput = document.getElementById("quantity_value");
+            const addToCartBtn = document.querySelector(".btnAddToCart");
+
+            // Cộng / Trừ số lượng
+            minusBtn.addEventListener("click", function () {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) quantityInput.value = value - 1;
+            });
+
+            plusBtn.addEventListener("click", function () {
+                let value = parseInt(quantityInput.value);
+                quantityInput.value = value + 1;
+            });
+
+            // Xử lý thêm vào giỏ
+            addToCartBtn.addEventListener("click", function (e) {
+                e.preventDefault(); // Ngăn chuyển trang
+                const productId = this.getAttribute("data-id");
+                const quantity = parseInt(quantityInput.value);
+
+                // Gửi dữ liệu qua AJAX hoặc form tùy bạn xử lý
+                console.log("Thêm vào giỏ: ID =", productId, ", Số lượng =", quantity);
+                // TODO: Gửi dữ liệu lên server
+            });
+        });
+    </script>
+
+
 }

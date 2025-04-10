@@ -31,7 +31,22 @@
                 </td>
                 <td>@item.CategoryName</td>
                 <td>@Common.FormatNumber(item.Price, 0)</td>
-                <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
+                <td>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <button type="button" class="btn btn-light p-1 btn-decrease" data-id="@item.ProductId" style="width: 30px;">
+                            <i class="fa fa-minus"></i>
+                        </button>
+
+                        <input type="number" class="form-control text-center mx-1 quantity-input"
+                               id="Quantity_@item.ProductId" value="@item.Quantity" min="1"
+                               style="width: 50px; height: 35px; padding: 0;" />
+
+                        <button type="button" class="btn btn-light p-1 btn-increase" data-id="@item.ProductId" style="width: 30px;">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </td>
+
                 <th>@Common.FormatNumber(item.TotalPrice, 2)</th>
                 <td>
                     <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
@@ -54,4 +69,29 @@
         </tr>
     }
 </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const table = document.querySelector(".table");
+
+        table.addEventListener("click", function (e) {
+            const target = e.target.closest(".btn-increase, .btn-decrease");
+            if (!target) return;
+
+            const id = target.getAttribute("data-id");
+            const input = document.getElementById("Quantity_" + id);
+            if (!input) return;
+
+            let value = parseInt(input.value);
+
+            if (target.classList.contains("btn-decrease")) {
+                if (value > 1) input.value = value - 1;
+            }
+
+            if (target.classList.contains("btn-increase")) {
+                input.value = value + 1;
+            }
+        });
+    });
+</script>
 
