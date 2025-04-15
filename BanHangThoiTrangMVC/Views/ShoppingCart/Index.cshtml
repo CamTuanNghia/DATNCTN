@@ -16,7 +16,7 @@
 
             <div class="breadcrumbs d-flex flex-row align-items-center">
                 <ul>
-                    <li><a href="/home">Home</a></li>
+                    <li><a href="/home">Trang chủ</a></li>
                     <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
                 </ul>
             </div>
@@ -25,6 +25,9 @@
             <!-- Main Content -->
 
             <div class="row">
+                <div class="col-12 text-center">
+                    <h3>GIỎ HÀNG</h3>
+                </div>
                 <div class="col-md-12" id="load_data">
                     @Html.Action("Partial_Item_Cart", "ShoppingCart")
                 </div>
@@ -39,6 +42,10 @@
 
                 </div>
             </div>
+            @if (ViewBag.CheckCart == null)
+            {
+                <a href="/san-pham" class="btn btn-outline-dark mt-3">Tiếp tục mua hàng</a>
+            }
         </div>
     </div>
 </div>
