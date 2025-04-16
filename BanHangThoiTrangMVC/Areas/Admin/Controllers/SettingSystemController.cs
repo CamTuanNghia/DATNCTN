@@ -40,19 +40,6 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
                 db.Entry(checkTitle).State = System.Data.Entity.EntityState.Modified;
             }
             //logo
-            var checkLogo = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains("SettingLogo"));
-            if (checkLogo == null)
-            {
-                set = new SystemSetting();
-                set.SettingKey = "SettingLogo";
-                set.SettingValue = req.SettingLogo;
-                db.SystemSettings.Add(set);
-            }
-            else
-            {
-                checkLogo.SettingValue = req.SettingLogo;
-                db.Entry(checkLogo).State = System.Data.Entity.EntityState.Modified;
-            }
             //Email
             var email = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains("SettingEmail"));
             if (email == null)

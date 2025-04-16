@@ -56,5 +56,6 @@ namespace BanHangThoiTrangMVC
             Application["visitors_online"] = Convert.ToUInt32(Application["visitors_online"]) - 1;
             Application.UnLock();
         }
+
     }
 }

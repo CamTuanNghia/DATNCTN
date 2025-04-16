@@ -509,4 +509,6 @@ C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTr
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.CopyComplete
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.dll
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.pdb
+C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\bin\Rotativa.dll
+C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.Migrations.csx.resources
 C:\Code BTL\BanHangThoiTrangMVC\DATN\BanHangThoiTrangMVC\obj\Debug\BanHangThoiTrangMVC.csproj.AssemblyReference.cache
