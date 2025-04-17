@@ -3,6 +3,30 @@
     ViewBag.Title = "Detail";
 }
 
+<style>
+    .size-btn {
+        width: 1cm;
+        height: 1cm;
+        padding: 0;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+    }
+
+        .size-btn.active {
+            background-color: #ff4e4e;
+            color: white;
+            border-color: #ff4e4e;
+        }
+
+    #productSizeGroup {
+        gap: 8px; /* khoảng cách giữa các nút */
+    }
+</style>
+
+
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
 @if (Model != null)
@@ -67,29 +91,33 @@
                     </div>
                     @if (Model.PriceSale > 0)
                     {
-                        <div class="original_price">@BanHangThoiTrangMVC.Common.Common.FormatNumber(Model.Price, 0)</div>
-                        <div class="product_price">@BanHangThoiTrangMVC.Common.Common.FormatNumber(Model.PriceSale, 0)</div>
+                        <div class="original_price">Giá gốc: @BanHangThoiTrangMVC.Common.Common.FormatNumber(Model.Price, 0) đ</div>
+                        <div class="product_price"> Giá khuyến mãi: @BanHangThoiTrangMVC.Common.Common.FormatNumber(Model.PriceSale, 0) đ </div>
                     }
                     else
                     {
-                        <div class="product_price">@BanHangThoiTrangMVC.Common.Common.FormatNumber(Model.Price, 0)</div>
+                        <div class="product_price">Giá: @BanHangThoiTrangMVC.Common.Common.FormatNumber(Model.Price, 0)</div>
                     }
+                    <br />
 
-                    <ul class="star_rating">
-                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                    </ul>
+                    <div>
+                        Đánh giá:
+                        <ul class="star_rating">
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                        </ul>
+                    </div>
                     @*<div class="product_color">
-            <span>Select Color:</span>
-            <ul>
-                <li style="background: #e54e5d"></li>
-                <li style="background: #252525"></li>
-                <li style="background: #60b3f3"></li>
-            </ul>
-        </div>*@
+                            <span>Select Color:</span>
+                            <ul>
+                                <li style="background: #e54e5d"></li>
+                                <li style="background: #252525"></li>
+                                <li style="background: #60b3f3"></li>
+                            </ul>
+                        </div>*@
                     <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                         <span>Số lượng:</span>
 
@@ -106,12 +134,42 @@
                             </span>
                         </div>
 
-                        <div class="red_button add_to_cart_button ms-3 mt-2 mt-sm-0">
-                            <a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm vào giỏ hàng</a>
-                        </div>
                     </div>
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <div class="d-flex align-items-center mb-3">
+                            @{
+                                var categoryTitle = Model.ProductCategory?.Title?.ToLower() ?? "";
+                                var productName = Model.Title?.ToLower() ?? "";
+
+                                var isClothing = productName.Contains("áo") || productName.Contains("quần") || productName.Contains("đồ bộ");
+                                var isShoes = productName.Contains("giày");
+
+                                if (categoryTitle != "khác" && (isClothing || isShoes))
+                                {
+                                    <span class="me-2" style="padding:10px;">Size:</span>
+                                    <div id="productSizeGroup" class="d-flex flex-wrap gap-2">
+                                        @foreach (var size in new[] { "S", "M", "L", "XL", "XXL", "3XL" })
+                                        {
+                                            <button type="button" class="btn btn-outline-secondary size-btn"
+                                                    data-size="@size">
+                                                @size
+                                            </button>
+                                        }
+                                    </div>
+                                    <input type="hidden" id="productSize" value="" />
+
+                                }
+                            }
+                        </div>
+
+                        <input type="hidden" id="productSize" value="" />
 
 
+
+                    </div>
+                    <div class="red_button add_to_cart_button ms-3 mt-2 mt-sm-0">
+                        <a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm vào giỏ hàng</a>
+                    </div>
 
                 </div>
             </div>
@@ -255,7 +313,8 @@
     </div>
 }
 
-@section scripts{
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/Content/assets/js/single_custom.js"></script>
 
     <script>
@@ -264,30 +323,58 @@
             const plusBtn = document.querySelector(".plus");
             const quantityInput = document.getElementById("quantity_value");
             const addToCartBtn = document.querySelector(".btnAddToCart");
+            const sizeInput = document.getElementById("productSize");
 
             // Cộng / Trừ số lượng
-            minusBtn.addEventListener("click", function () {
+            minusBtn?.addEventListener("click", function () {
                 let value = parseInt(quantityInput.value);
                 if (value > 1) quantityInput.value = value - 1;
             });
 
-            plusBtn.addEventListener("click", function () {
+            plusBtn?.addEventListener("click", function () {
                 let value = parseInt(quantityInput.value);
                 quantityInput.value = value + 1;
             });
 
-            // Xử lý thêm vào giỏ
-            addToCartBtn.addEventListener("click", function (e) {
-                e.preventDefault(); // Ngăn chuyển trang
+            // Chọn size
+            document.querySelectorAll(".size-btn").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    if (sizeInput) {
+                        sizeInput.value = this.getAttribute("data-size");
+                    }
+                });
+            });
+
+            // Thêm vào giỏ hàng
+            addToCartBtn?.addEventListener("click", function (e) {
+                e.preventDefault();
+
                 const productId = this.getAttribute("data-id");
                 const quantity = parseInt(quantityInput.value);
+                const selectedSize = sizeInput ? sizeInput.value : null;
 
-                // Gửi dữ liệu qua AJAX hoặc form tùy bạn xử lý
-                console.log("Thêm vào giỏ: ID =", productId, ", Số lượng =", quantity);
-                // TODO: Gửi dữ liệu lên server
+                console.log("Thêm vào giỏ: ID =", productId, ", Số lượng =", quantity, ", Size =", selectedSize);
+
+                $.ajax({
+                    url: '/ShoppingCart/AddToCart',
+                    type: 'POST',
+                    data: {
+                        id: productId,
+                        quantity: quantity,
+                        size: selectedSize
+                    },
+                    success: function (res) {
+                        alert(res.msg);
+                        // Có thể cập nhật giao diện giỏ hàng ở đây
+                    },
+                    error: function () {
+                        alert("Đã có lỗi xảy ra khi thêm vào giỏ hàng.");
+                    }
+                });
             });
         });
     </script>
-
-
 }
+

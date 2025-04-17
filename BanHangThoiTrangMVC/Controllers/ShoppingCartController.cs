@@ -145,44 +145,43 @@ namespace BanHangThoiTrangMVC.Controllers
 
 
         [HttpPost]
-        /*[Authorize]*/
-        public ActionResult AddToCart(int id, int quantity)
+        public ActionResult AddToCart(int id, int quantity, string size)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var code = new { Success = false, msg = "", code = -1, Count = 0 };
                 var db = new ApplicationDbContext();
                 var checkProduct = db.Products.FirstOrDefault(x => x.Id == id);
-                ShoppingCart cart = (ShoppingCart)Session["Cart"];
-                if (cart == null)
-                {
-                    cart = new ShoppingCart();
-                }
+                ShoppingCart cart = (ShoppingCart)Session["Cart"] ?? new ShoppingCart();
+
                 ShoppingCartItem item = new ShoppingCartItem
                 {
                     ProductId = checkProduct.Id,
                     ProductName = checkProduct.Title,
                     CategoryName = checkProduct.ProductCategory.Title,
                     Alias = checkProduct.Alias,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    Size = size // Gán size
                 };
+
                 if (checkProduct.ProductImages.FirstOrDefault(x => x.IsDefault) != null)
                 {
                     item.ProductImg = checkProduct.ProductImages.FirstOrDefault(x => x.IsDefault).Image;
                 }
-                item.Price = checkProduct.Price;
-                if (checkProduct.PriceSale > 0)
-                {
-                    item.Price = (decimal)checkProduct.PriceSale;
-                }
+
+                item.Price = checkProduct.PriceSale > 0 ? (decimal)checkProduct.PriceSale : checkProduct.Price;
                 item.TotalPrice = item.Quantity * item.Price;
+
                 cart.AddToCart(item, quantity);
                 Session["Cart"] = cart;
+
                 code = new { Success = true, msg = "Thêm Sản Phẩm Vào Giỏ Hàng Thành Công!", code = 1, Count = cart.Items.Count };
                 return Json(code);
             }
+
             return Json(new { Success = true, msg = "Cần Đăng Nhập Mới Được Mua Hàng" });
         }
+
 
         [HttpPost]
         public ActionResult Update(int id, int quantity)

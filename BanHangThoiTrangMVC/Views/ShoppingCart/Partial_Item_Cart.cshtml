@@ -6,6 +6,7 @@
         <th>Ảnh sản phẩm</th>
         <th>Tên sản phẩm</th>
         <th>Danh mục</th>
+        <th></th>
         <th>Giá</th>
 
         <th style="width:100px;">Số lượng</th>
@@ -21,38 +22,39 @@
         foreach (var item in Model)
         {
             tongtien += item.TotalPrice;
-            <tr class="text-center" id="trow_@item.ProductId">
-                <td>@(i+1)</td>
-                <td><img src="@item.ProductImg" width="60" /></td>
-                <td>
-                    <a href="/chi-tiet/@item.Alias-p@(item.ProductId)">
-                        @item.ProductName
-                    </a>
-                </td>
-                <td>@item.CategoryName</td>
-                <td>@Common.FormatNumber(item.Price, 0)</td>
-                <td>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <button type="button" class="btn btn-light p-1 btn-decrease" data-id="@item.ProductId" style="width: 30px;">
-                            <i class="fa fa-minus"></i>
-                        </button>
+<tr class="text-center" id="trow_@item.ProductId">
+    <td>@(i+1)</td>
+    <td><img src="@item.ProductImg" width="60" /></td>
+    <td>
+        <a href="/chi-tiet/@item.Alias-p@(item.ProductId)">
+            @item.ProductName
+        </a>
+    </td>
+    <td>@item.CategoryName</td>
+    <td>@item.Size</td>
+    <td>@Common.FormatNumber(item.Price, 0)</td>
+    <td>
+        <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-light p-1 btn-decrease" data-id="@item.ProductId" style="width: 30px;">
+                <i class="fa fa-minus"></i>
+            </button>
 
-                        <input type="number" class="form-control text-center mx-1 quantity-input"
-                               id="Quantity_@item.ProductId" value="@item.Quantity" min="1"
-                               style="width: 50px; height: 35px; padding: 0;" />
+            <input type="number" class="form-control text-center mx-1 quantity-input"
+                   id="Quantity_@item.ProductId" value="@item.Quantity" min="1"
+                   style="width: 50px; height: 35px; padding: 0;" />
 
-                        <button type="button" class="btn btn-light p-1 btn-increase" data-id="@item.ProductId" style="width: 30px;">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </td>
+            <button type="button" class="btn btn-light p-1 btn-increase" data-id="@item.ProductId" style="width: 30px;">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </td>
 
-                <th>@Common.FormatNumber(item.TotalPrice, 2)</th>
-                <td>
-                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-success btnUpdate">Cập nhật</a>
-                </td>
-            </tr>
+    <th>@Common.FormatNumber(item.TotalPrice, 2)</th>
+    <td>
+        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-success btnUpdate">Cập nhật</a>
+    </td>
+</tr>
             i++;
         }
         <tr>

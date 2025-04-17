@@ -214,6 +214,14 @@
     <Compile Include="Migrations\202504161539097_csx.designer.cs">
       <DependentUpon>202504161539097_csx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202504171405206_lfk.cs" />
+    <Compile Include="Migrations\202504171405206_lfk.designer.cs">
+      <DependentUpon>202504171405206_lfk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202504171508385_sd.cs" />
+    <Compile Include="Migrations\202504171508385_sd.designer.cs">
+      <DependentUpon>202504171508385_sd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -3595,6 +3603,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202504161539097_csx.resx">
       <DependentUpon>202504161539097_csx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504171405206_lfk.resx">
+      <DependentUpon>202504171405206_lfk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202504171508385_sd.resx">
+      <DependentUpon>202504171508385_sd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
