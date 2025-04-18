@@ -1,0 +1,77 @@
+﻿@model WebSiteMCSport.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/register.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+
+<div class="overlay"></div>
+<div class="register-container">
+    <div>
+        <div class="logo">
+            <div class="logo_container">
+                <p>MC <span>Sport</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-register">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h1 class="heading"> @ViewBag.Title </h1>
+            <div class="spacer"></div>
+
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Email:</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập email của bạn" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Họ và tên:</label>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Nhập họ và tên" })
+                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="form-label">Số điện thoại:</label>
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại" })
+                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Mật khẩu:</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword" class="form-label">Xác nhận mật khẩu:</label>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Nhập lại mật khẩu" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+            <br/>
+            <div class="sign-up">
+                <div>
+                    <input type="submit" value="Đăng ký" class="form-submit fas fa-chevron-right" />
+                </div>
+            </div>
+
+            <br />
+            <p class="clw">Bạn đã có tài khoản? <a class="clw" href="/account/login">Đăng nhập</a></p>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,72 @@
+﻿@using WebSiteMCSport.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/login.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+
+<div class="overlay"></div>
+<div class="login-container">
+    <div>
+        <div class="logo">
+            <div class="logo_container">
+                <p>MC <span>Sport</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-login">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <h1 class="heading"> @ViewBag.Title </h1>
+            <div class="spacer"></div>
+            <div class="form-group">
+                <label for="email" class="form-label">Tài khoản: </label>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "VD: abc@gmail.com" })
+                <span class="form-message"></span>
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <br/>
+                <div class="checkbox-container">
+                    @Html.CheckBoxFor(m => m.RememberMe, new { id = "rememberMe" })
+                    <label for="rememberMe">Nhớ mật khẩu</label>
+                </div>
+            </div>
+                <div class="sign-up">
+                    <div>
+                        <input type="submit" value="Đăng nhập" class="form-submit fas fa-chevron-right" />
+                    </div>
+                </div>
+                <br />
+                <p class="clw">Bạn chưa có tài khoản?  <a class="clw" href="/account/register"> Đăng ký</a></p>
+                <br/>
+                <p>
+                    <a class="clw" href="/account/forgotpassword"> Quên mật khẩu?</a>
+                </p>
+            </div>
+        }
+        <br />
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+       
+    </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
