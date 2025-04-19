@@ -3,29 +3,6 @@
     ViewBag.Title = "Detail";
 }
 
-<style>
-    .size-btn {
-        width: 1cm;
-        height: 1cm;
-        padding: 0;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-    }
-
-        .size-btn.active {
-            background-color: #ff4e4e;
-            color: white;
-            border-color: #ff4e4e;
-        }
-
-    #productSizeGroup {
-        gap: 8px; /* khoảng cách giữa các nút */
-    }
-</style>
-
 
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
@@ -111,13 +88,13 @@
                         </ul>
                     </div>
                     @*<div class="product_color">
-                            <span>Select Color:</span>
-                            <ul>
-                                <li style="background: #e54e5d"></li>
-                                <li style="background: #252525"></li>
-                                <li style="background: #60b3f3"></li>
-                            </ul>
-                        </div>*@
+            <span>Select Color:</span>
+            <ul>
+                <li style="background: #e54e5d"></li>
+                <li style="background: #252525"></li>
+                <li style="background: #60b3f3"></li>
+            </ul>
+        </div>*@
                     <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                         <span>Số lượng:</span>
 
@@ -148,13 +125,21 @@
                                 {
                                     <span class="me-2" style="padding:10px;">Size:</span>
                                     <div id="productSizeGroup" class="d-flex flex-wrap gap-2">
-                                        @foreach (var size in new[] { "S", "M", "L", "XL", "XXL", "3XL" })
+                                        @if (isShoes)
                                         {
-                                            <button type="button" class="btn btn-outline-secondary size-btn"
-                                                    data-size="@size">
-                                                @size
-                                            </button>
+                                            foreach (var size in Enumerable.Range(37, 9)) // 37 đến 45
+                                            {
+                                                <button type="button" class="btn btn-outline-secondary size-btn" data-size="@size">@size</button>
+                                            }
                                         }
+                                        else
+                                        {
+                                            foreach (var size in new[] { "S", "M", "L", "XL", "XXL", "3XL" })
+                                            {
+                                                <button type="button" class="btn btn-outline-secondary size-btn" data-size="@size">@size</button>
+                                            }
+                                        }
+
                                     </div>
                                     <input type="hidden" id="productSize" value="" />
 
@@ -167,8 +152,12 @@
 
 
                     </div>
-                    <div class="red_button add_to_cart_button ms-3 mt-2 mt-sm-0">
+                    <div class="white_button add_to_cart_button ms-3 mt-2 mt-sm-0">
                         <a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm vào giỏ hàng</a>
+                    </div>
+
+                    <div class="red_button buy_now_button ms-3 mt-2 mt-sm-0">
+                        <a href="#" class="btnBuyNow" data-id="@Model.Id">Mua ngay</a>
                     </div>
 
                 </div>
@@ -223,12 +212,12 @@
 
                             <!-- User Reviews -->
 
-                            <div class="col-lg-6 reviews_col">
+                            @*<div class="col-lg-6 reviews_col">
                                 <div class="tab_title reviews_title">
                                     <h4>Reviews (2)</h4>
                                 </div>
 
-                                <!-- User Review -->
+                                 User Review 
 
                                 <div class="user_review_container d-flex flex-column flex-sm-row">
                                     <div class="user">
@@ -250,7 +239,7 @@
                                     </div>
                                 </div>
 
-                                <!-- User Review -->
+                                 User Review 
 
                                 <div class="user_review_container d-flex flex-column flex-sm-row">
                                     <div class="user">
@@ -271,7 +260,7 @@
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <!-- Add Review -->
 
@@ -280,12 +269,12 @@
                                 <div class="add_review">
                                     <form id="review_form" action="post">
                                         <div>
-                                            <h1>Add Review</h1>
+                                            <h1>Đánh giá</h1>
                                             <input id="review_name" class="form_input input_name" type="text" name="name" placeholder="Name*" required="required" data-error="Name is required.">
                                             <input id="review_email" class="form_input input_email" type="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">
                                         </div>
                                         <div>
-                                            <h1>Your Rating:</h1>
+                                            <h1>Đánh giá của bạn:</h1>
                                             <ul class="user_star_rating">
                                                 <li><i class="fa fa-star" aria-hidden="true"></i></li>
                                                 <li><i class="fa fa-star" aria-hidden="true"></i></li>
@@ -293,10 +282,10 @@
                                                 <li><i class="fa fa-star" aria-hidden="true"></i></li>
                                                 <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
                                             </ul>
-                                            <textarea id="review_message" class="input_review" name="message" placeholder="Your Review" rows="4" required data-error="Please, leave us a review."></textarea>
+                                            <textarea id="review_message" class="input_review" name="message" placeholder="Your Review" rows="4" required data-error="Vui lòng để lại đánh giá cho chúng tôi."></textarea>
                                         </div>
                                         <div class="text-left text-sm-right">
-                                            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>
+                                            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">Gửi</button>
                                         </div>
                                     </form>
                                 </div>
@@ -322,7 +311,6 @@
             const minusBtn = document.querySelector(".minus");
             const plusBtn = document.querySelector(".plus");
             const quantityInput = document.getElementById("quantity_value");
-            const addToCartBtn = document.querySelector(".btnAddToCart");
             const sizeInput = document.getElementById("productSize");
 
             // Cộng / Trừ số lượng
@@ -348,6 +336,7 @@
             });
 
             // Thêm vào giỏ hàng
+            const addToCartBtn = document.querySelector(".btnAddToCart");
             addToCartBtn?.addEventListener("click", function (e) {
                 e.preventDefault();
 
@@ -367,14 +356,41 @@
                     },
                     success: function (res) {
                         alert(res.msg);
-                        // Có thể cập nhật giao diện giỏ hàng ở đây
                     },
                     error: function () {
                         alert("Đã có lỗi xảy ra khi thêm vào giỏ hàng.");
                     }
                 });
             });
+
+            // Mua ngay
+            const buyNowBtn = document.querySelector(".btnBuyNow");
+            buyNowBtn?.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const productId = this.getAttribute("data-id");
+                const quantity = parseInt(quantityInput.value);
+                const selectedSize = sizeInput ? sizeInput.value : null;
+
+                $.ajax({
+                    url: '/ShoppingCart/AddToCart',
+                    type: 'POST',
+                    data: {
+                        id: productId,
+                        quantity: quantity,
+                        size: selectedSize
+                    },
+                    success: function (res) {
+                        // Sau khi thêm vào giỏ thì chuyển qua trang thanh toán
+                        window.location.href = '/thanh-toan';
+                    },
+                    error: function () {
+                        alert("Đã có lỗi xảy ra khi mua ngay.");
+                    }
+                });
+            });
         });
+
     </script>
 }
 
