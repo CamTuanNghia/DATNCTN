@@ -49,6 +49,7 @@ namespace WebSiteMCSport
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["PasswordEmail"].ToString());
             smtpClient.Credentials = credentials;
+            smtpClient.UseDefaultCredentials = false;
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
 

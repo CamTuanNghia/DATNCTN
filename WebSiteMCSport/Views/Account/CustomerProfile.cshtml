@@ -1,0 +1,109 @@
+﻿@model WebSiteMCSport.Models.CustomerViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f5f5f5;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    .profile-card {
+        background: #fff;
+        padding-top:350px;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        max-width: 800px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .avatar {
+        padding-top:30px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #4CAF50;
+        margin-bottom: 20px;
+    }
+
+    .button-group {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: row; /* nằm ngang */
+        justify-content: center;
+        gap: 20px; /* khoảng cách giữa các nút */
+        flex-wrap: wrap; /* đảm bảo không vỡ layout trên màn hình nhỏ */
+        padding-bottom:50px;
+    }
+
+
+    .profile-button {
+        padding: 10px 20px;
+        font-size: 15px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        min-width: 150px;
+        text-align: center;
+    }
+
+
+        .profile-button:hover {
+            background-color: #45a049;
+        }
+
+    .secondary-button {
+        background-color: #2196F3;
+    }
+
+        .secondary-button:hover {
+            background-color: #1e88e5;
+        }
+
+    .tertiary-button {
+        background-color: #9C27B0;
+    }
+
+        .tertiary-button:hover {
+            background-color: #8e24aa;
+        }
+
+</style>
+
+
+<div class="profile-container">
+    <div class="profile-card">
+        <img src="@Url.Content(Model.avarta ?? "~/Content/images/default-avatar.png")" alt="Avatar" class="avatar" />
+        <h2>@Model.CustomerName</h2>
+        <p style="color:black;"><strong>Email:</strong> @Model.Email</p>
+        <p style="color:black;"><strong>SĐT:</strong> @Model.Phone</p>
+        <p style="color:black;"><strong>Địa chỉ:</strong> @Model.Address</p>
+        <div class="button-group">
+            <a href="@Url.Action("EditUser", "Account")" class="profile-button">Chỉnh sửa thông tin</a>
+            <button class="profile-button secondary-button">Lịch sử mua hàng</button>
+            <button class="profile-button tertiary-button">Theo dõi đơn hàng</button>
+        </div>
+    </div>
+</div>
+
+

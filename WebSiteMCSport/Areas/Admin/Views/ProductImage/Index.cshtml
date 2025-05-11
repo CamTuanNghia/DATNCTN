@@ -104,7 +104,7 @@
     $(document).ready(function () {
         $('body').on('click', '.btnDelete', function () {
             var id = $(this).data('id');
-            var conf = confirm('ban có muốn xóa ảnh này không?');
+            var conf = confirm('Bạn có muốn xóa ảnh này không?');
             if (conf === true) {
                 $.ajax({
                     url: '/admin/ProductImage/delete',
@@ -118,5 +118,23 @@
                 });
             }
         });
+
+        $('body').on('click', '.btnDefault', function () {
+            var id = $(this).data('id');
+            var conf = confirm('Bạn có muốn chọn ảnh này làm ảnh đại diện không?');
+            if (conf === true) {
+                $.ajax({
+                    url: '/admin/ProductImage/UpdateDefault',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        });
     });
+
 </script>

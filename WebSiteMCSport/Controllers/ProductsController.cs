@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BanHangThoiTrangMVC.Models.EF;
 
 namespace WebSiteMCSport.Controllers
 {
@@ -63,14 +64,49 @@ namespace WebSiteMCSport.Controllers
             {
                 db.Products.Attach(item);
                 item.ViewCount = item.ViewCount + 1;
-                if(item.ViewCount == 1000)
+                if (item.ViewCount == 1000)
                 {
                     item.ViewCount = 0;
                 }
                 db.Entry(item).Property(x => x.ViewCount).IsModified = true;
                 db.SaveChanges();
             }
+            ViewBag.Reviews = db.ProductReviews
+                        .Where(r => r.ProductId == id)
+                        .OrderByDescending(r => r.CreatedAt)
+                        .ToList();
             return View(item);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitReview(ProductReview model)
+        {
+            if (ModelState.IsValid)
+            {
+                var review = new ProductReview
+                {
+                    ProductId = model.ProductId,
+                    Name = model.Name,
+                    Email = model.Email,
+                    Message = model.Message,
+                    Rating = model.Rating,
+                    CreatedAt = DateTime.Now
+                };
+
+                db.ProductReviews.Add(review);
+                db.SaveChanges();
+
+                // ✅ Lấy alias của sản phẩm để redirect
+                var product = db.Products.Find(model.ProductId);
+                if (product != null)
+                {
+                    TempData["ReviewSuccess"] = "Cảm ơn bạn đã gửi đánh giá!";
+                    return RedirectToAction("Detail", "Products", new { alias = product.Alias, id = product.Id });
+                }
+            }
+
+            TempData["ReviewError"] = "Vui lòng điền đầy đủ thông tin.";
+            return RedirectToAction("Detail", "Products", new { alias = "san-pham", id = model.ProductId }); // fallback nếu lỗi
+        }
     }
-}
+    }

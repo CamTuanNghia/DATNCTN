@@ -4,6 +4,7 @@
 }
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
 
 
 <div class="container product_section_container">
@@ -127,7 +128,6 @@
                                                     <div class="product_image" hr>
                                                         <a href="/products/detail/@item.Id"><img src="@strImge" alt="@item.Title"></a>
                                                     </div>
-                                                    <div class="favorite favorite_left"></div>
                                                     @if (item.PriceSale > 0)
                                                     {
                                                         <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span style="font-size: 10px;">Giảm giá</span></div>

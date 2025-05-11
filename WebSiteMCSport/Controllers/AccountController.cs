@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -409,6 +410,99 @@ namespace WebSiteMCSport.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult CustomerProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new CustomerViewModel
+            {
+                avarta = user.Avatar ?? "~/Content/images/default-avatar.png",
+                CustomerName = user.Fullname,
+                Phone = user.Phone,
+                Address = user.Address,
+                Email = user.Email,
+            };
+
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult EditUser()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new CustomerViewModel
+            {
+                avarta = user.Avatar ?? "~/Content/images/default-avatar.png",
+                CustomerName = user.Fullname,
+                Phone = user.Phone,
+                Address = user.Address,
+                Email = user.Email,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(CustomerViewModel model, HttpPostedFileBase avatarFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Cập nhật thông tin cơ bản
+            user.Fullname = model.CustomerName;
+            user.Phone = model.Phone;
+            user.Address = model.Address;
+            user.Email = model.Email;
+
+            // Xử lý ảnh đại diện nếu có upload
+            if (avatarFile != null && avatarFile.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(avatarFile.FileName);
+                var filePath = Path.Combine(Server.MapPath("~/Content/assets/images/avatars"), fileName);
+                avatarFile.SaveAs(filePath);
+                user.Avatar = "~/Content/assets/images/avatars/" + fileName;
+            }
+
+            var result = UserManager.Update(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("CustomerProfile");
+            }
+
+            // Nếu cập nhật không thành công
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+
+            return View(model);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -428,6 +522,25 @@ namespace WebSiteMCSport.Controllers
 
             base.Dispose(disposing);
         }
+        // GET: /Account/ProfileUser
+        //[AllowAnonymous]
+        //public ActionResult ProfileUser()
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var user = UserManager.FindById(userId);
+
+        //    var model = new CustomerViewModel
+        //    {
+        //        avarta = user.Avatar, // bạn có thể lấy từ user.Avatar nếu có
+        //        CustomerName = user.Fullname,
+        //        Phone = user.Phone,
+        //        Address = user.Address,
+        //        Email = user.Email,
+        //    };
+
+        //    return View(model);
+        //}
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

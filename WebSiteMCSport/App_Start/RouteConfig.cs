@@ -88,6 +88,13 @@ namespace WebSiteMCSport
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "WebSiteMCSport.Controllers" }
             );
+            routes.MapRoute(
+             name: "CustomerProfile",
+             url: "ca-nhan",
+             defaults: new { controller = "Customer", action = "Profile" },
+             namespaces: new[] { "WebSiteMCSport.Controllers" }
+             );
+
         }
     }
 }

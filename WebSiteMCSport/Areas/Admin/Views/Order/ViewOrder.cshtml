@@ -79,13 +79,16 @@
                         @switch (Model.Status)
                         {
                             case 1:
-                                <p class="form-control">Chưa thanh toán</p>
+                                <p class="form-control">Chờ xác nhận</p>
                                 break;
                             case 2:
-                                <p class="form-control">Đã thanh toán</p>
+                                <p class="form-control">Đang xử lý</p>
                                 break;
                             case 3:
-                                <p class="form-control">Hoàn Thành</p>
+                                <p class="form-control">Đang giao hàng</p>
+                                break;
+                            case 4:
+                                <p class="form-control">Đã giao</p>
                                 break;
                             case 4:
                                 <p class="form-control">Hủy</p>

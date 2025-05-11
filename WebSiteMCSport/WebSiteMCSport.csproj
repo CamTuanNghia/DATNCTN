@@ -206,21 +206,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202503021402476_InitialCreate.cs" />
-    <Compile Include="Migrations\202503021402476_InitialCreate.designer.cs">
-      <DependentUpon>202503021402476_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202504200416563_aaaa.cs" />
+    <Compile Include="Migrations\202504200416563_aaaa.designer.cs">
+      <DependentUpon>202504200416563_aaaa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202504161539097_csx.cs" />
-    <Compile Include="Migrations\202504161539097_csx.designer.cs">
-      <DependentUpon>202504161539097_csx.cs</DependentUpon>
+    <Compile Include="Migrations\202504200933595_avt.cs" />
+    <Compile Include="Migrations\202504200933595_avt.designer.cs">
+      <DependentUpon>202504200933595_avt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202504171405206_lfk.cs" />
-    <Compile Include="Migrations\202504171405206_lfk.designer.cs">
-      <DependentUpon>202504171405206_lfk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202504171508385_sd.cs" />
-    <Compile Include="Migrations\202504171508385_sd.designer.cs">
-      <DependentUpon>202504171508385_sd.cs</DependentUpon>
+    <Compile Include="Migrations\202504200947200_dss.cs" />
+    <Compile Include="Migrations\202504200947200_dss.designer.cs">
+      <DependentUpon>202504200947200_dss.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -239,6 +235,7 @@
     <Compile Include="Models\EF\Product.cs" />
     <Compile Include="Models\EF\ProductCategory.cs" />
     <Compile Include="Models\EF\ProductImage.cs" />
+    <Compile Include="Models\EF\ProductReview.cs" />
     <Compile Include="Models\EF\Subscribe.cs" />
     <Compile Include="Models\EF\SystemSetting.cs" />
     <Compile Include="Models\EF\ThongKe.cs" />
@@ -3591,24 +3588,25 @@
     <Content Include="Views\ShoppingCart\VnpayReturn.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\Account\CustomerProfile.cshtml" />
+    <Content Include="Views\Account\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Content\assets\images\avatars\" />
     <Folder Include="Content\ckfinder\userfiles\" />
+    <Folder Include="Content\uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202503021402476_InitialCreate.resx">
-      <DependentUpon>202503021402476_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202504200416563_aaaa.resx">
+      <DependentUpon>202504200416563_aaaa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202504161539097_csx.resx">
-      <DependentUpon>202504161539097_csx.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202504200933595_avt.resx">
+      <DependentUpon>202504200933595_avt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202504171405206_lfk.resx">
-      <DependentUpon>202504171405206_lfk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202504171508385_sd.resx">
-      <DependentUpon>202504171508385_sd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202504200947200_dss.resx">
+      <DependentUpon>202504200947200_dss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

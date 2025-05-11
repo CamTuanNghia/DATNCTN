@@ -7,13 +7,13 @@ namespace WebSiteMCSport.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class lfk : IMigrationMetadata
+    public sealed partial class aaaa : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(lfk));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(aaaa));
         
         string IMigrationMetadata.Id
         {
-            get { return "202504171405206_lfk"; }
+            get { return "202504200416563_aaaa"; }
         }
         
         string IMigrationMetadata.Source

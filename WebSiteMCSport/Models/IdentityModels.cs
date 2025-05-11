@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using WebSiteMCSport.Models.EF;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BanHangThoiTrangMVC.Models.EF;
 
 namespace WebSiteMCSport.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-
+        public string Avatar { get; set; }
         public string Fullname { get; set; }
+        public string Address { get; set; }
         public string Phone { get; set; }
         public List<string> RoleNames { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -45,6 +47,8 @@ namespace WebSiteMCSport.Models
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<ThongKe> ThongKes { get; set; }
+        public DbSet<ProductReview> ProductReviews { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

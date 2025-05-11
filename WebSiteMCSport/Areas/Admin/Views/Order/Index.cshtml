@@ -59,17 +59,21 @@
                         <td>
                             @if (item.Status == 1)
                             {
-                                <span>Chưa Thanh Toán</span>
+                                <span>Chờ xác nhận</span>
                             }
                             @if (item.Status == 2)
                             {
-                                <span>Đã Thanh Toán</span>
+                                <span>Đang xử lý</span>
                             }
                             @if (item.Status == 3)
                             {
-                                <span>Hoàn Thành</span>
+                                <span>Đang giao hàng</span>
                             }
                             @if (item.Status == 4)
+                            {
+                                <span>Đã giao</span>
+                            }
+                            @if (item.Status == 5)
                             {
                                 <span>Hủy</span>
                             }
@@ -77,7 +81,7 @@
                         <td>@(item.TypePayment==1?"COD":"Chuyển Khoản")</td>
                         <td>
                             <a href="/admin/order/vieworder/@item.Id" class="btn btn-sm btn-success">Xem</a>
-                            <a href="#" class="btn btn-sm btn-danger btnCapNhat" data-id="@item.Id">Cập Nhật</a>
+                            <a href="#" class="btn btn-sm btn-danger btnCapNhat" data-id="@item.Id">Cập Nhật Trạng Thái</a>
                         </td>
                     </tr>
                             i++;
@@ -118,15 +122,18 @@
                     <label>Trạng thái</label>
                     <select class="form-control" id="ddTrangThai">
                         <option value="1">
-                            Chưa thanh toán
+                            Chờ xác nhận
                         </option>
                         <option value="2">
-                            Đã thanh toán
+                            Đang xử lý
                         </option>
                         <option value="3">
-                            Hoàn Thành
+                            Đang giao hàng
                         </option>
                         <option value="4">
+                            Đã giao
+                        </option>
+                        <option value="5">
                             Hủy
                         </option>
                     </select>

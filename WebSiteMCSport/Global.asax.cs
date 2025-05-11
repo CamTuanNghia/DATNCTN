@@ -1,10 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
+// Thêm các namespace cần thiết
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using WebSiteMCSport.Models; // đảm bảo đúng namespace chứa ApplicationDbContext & ApplicationUser
 
 namespace WebSiteMCSport
 {
@@ -25,7 +30,11 @@ namespace WebSiteMCSport
             Application["ThangTruoc"] = 0;
             Application["TatCa"] = 0;
             Application["visitor_online"] = 0;
+
+            // Gọi hàm tạo role
+            CreateRolesAndUsers();
         }
+
         void Session_Start(object sender, EventArgs e)
         {
             Session.Timeout = 150;
@@ -45,11 +54,10 @@ namespace WebSiteMCSport
                     Application["ThangTruoc"] = long.Parse("0" + item.ThangTruoc.ToString("#,###"));
                     Application["TatCa"] = (int.Parse(item.TatCa.ToString())).ToString("#,###");
                 }
-
             }
             catch { }
-
         }
+
         void Session_End(object sender, EventArgs e)
         {
             Application.Lock();
@@ -57,5 +65,19 @@ namespace WebSiteMCSport
             Application.UnLock();
         }
 
+        // Hàm tạo role Customer nếu chưa có
+        private void CreateRolesAndUsers()
+        {
+            var context = new ApplicationDbContext();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            // Tạo role Customer nếu chưa tồn tại
+            if (!roleManager.RoleExists("Customer"))
+            {
+                var role = new IdentityRole("Customer");
+                roleManager.Create(role);
+            }
+        }
     }
 }
