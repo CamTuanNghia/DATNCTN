@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Thống kê doanh thu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thống kê doanh thu</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Thống kê</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label>Từ ngày:</label>
+            <input type="date" id="fromDate" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>Đến ngày:</label>
+            <input type="date" id="toDate" class="form-control" />
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button class="btn btn-primary" onclick="loadStatistical()">Thống kê</button>
+        </div>
+        <div class="col-md-3 d-flex align-items-end justify-content-end">
+            <div>
+                <strong>Tổng Doanh Thu:</strong> <span id="totalDoanhThu">0</span><br />
+                <strong>Tổng Lợi Nhuận:</strong> <span id="totalLoiNhuan">0</span><br />
+                <button class="btn btn-danger mt-2" onclick="exportPDF()">Xuất PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Biểu đồ thống kê</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <canvas id="barChart" style="min-height:250px;height:250px;"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Ngày</th>
+                                <th>Doanh thu</th>
+                                <th>Lợi nhuận</th>
+                            </tr>
+                        </thead>
+                        <tbody id="load_data"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section scripts {
+    <script src="~/Content/assets/plugins/moment/moment.min.js"></script>
+    <script src="~/Content/clients/plugins/chart.js/Chart.min.js"></script>
+    <script>
+        let barChart;
+
+        function loadStatistical() {
+            var fromDate = $('#fromDate').val();
+            var toDate = $('#toDate').val();
+
+            $.ajax({
+                url: '/Statistical/GetStatistical',
+                type: 'GET',
+                data: { fromDate: fromDate, toDate: toDate },
+                success: function (rs) {
+                    var arrDate = [], arrDoanhThu = [], arrLoiNhuan = [];
+                    var totalDoanhThu = 0, totalLoiNhuan = 0;
+
+                    $.each(rs.Data, function (i, item) {
+                        var strDate = moment(item.Date).format('DD/MM/yyyy');
+                        arrDate.push(strDate);
+                        arrDoanhThu.push(item.DoanhThu);
+                        arrLoiNhuan.push(item.LoiNhuan);
+                        totalDoanhThu += item.DoanhThu;
+                        totalLoiNhuan += item.LoiNhuan;
+                    });
+
+                    $('#totalDoanhThu').text(totalDoanhThu.toLocaleString() + " ₫");
+                    $('#totalLoiNhuan').text(totalLoiNhuan.toLocaleString() + " ₫");
+
+                    var data = {
+                        labels: arrDate,
+                        datasets: [
+                            {
+                                label: 'Doanh thu',
+                                backgroundColor: '#4e73df',
+                                data: arrDoanhThu
+                            },
+                            {
+                                label: 'Lợi nhuận',
+                                backgroundColor: '#1cc88a',
+                                data: arrLoiNhuan
+                            }
+                        ]
+                    };
+
+                    var options = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.dataset.label + ': ' + context.raw.toLocaleString() + ' ₫';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                ticks: {
+                                    callback: function (value) {
+                                        return value.toLocaleString() + ' ₫';
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    if (barChart) barChart.destroy();
+                    const ctx = document.getElementById('barChart').getContext('2d');
+                    barChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        options: options
+                    });
+
+                    load_data(rs.Data);
+                },
+                error: function () {
+                    alert("Lỗi khi tải dữ liệu.");
+                }
+            });
+        }
+
+        function load_data(data) {
+            let strHtml = "";
+            $.each(data, function (i, item) {
+                var strDate = moment(item.Date).format('DD/MM/yyyy');
+                strHtml += `<tr>
+                        <td>${i + 1}</td>
+                        <td>${strDate}</td>
+                        <td>${item.DoanhThu.toLocaleString()} ₫</td>
+                        <td>${item.LoiNhuan.toLocaleString()} ₫</td>
+                    </tr>`;
+            });
+            $('#load_data').html(strHtml);
+        }
+
+        function exportPDF() {
+            var fromDate = $('#fromDate').val();
+            var toDate = $('#toDate').val();
+            var url = `/Admin/Statistical/ExportPdf?fromDate=${fromDate}&toDate=${toDate}`;
+            window.open(url, '_blank');
+        }
+
+
+        $(document).ready(function () {
+            loadStatistical();
+        });
+    </script>
+}

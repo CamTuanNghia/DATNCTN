@@ -1,0 +1,404 @@
+﻿@model WebSiteMCSport.Models.EF.Product
+
+@{
+    ViewBag.Title = "Detail";
+  
+    var reviews = ViewBag.Reviews as List<BanHangThoiTrangMVC.Models.EF.ProductReview>;
+    
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
+@if (Model != null)
+{
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/home">Trang chủ</a></li>
+                        <li><a href="/danh-muc-san-pham/@Model.ProductCategory.Alias-@Model.ProductCategory.Id"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.ProductCategory.Title</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                @if (Model.ProductImages != null && Model.ProductImages.Any())
+                {
+                    <div class="single_product_pics">
+                        <div class="row">
+                            <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                                <div class="single_product_thumbnails">
+                                    <ul>
+                                        @foreach (var item in Model.ProductImages)
+                                        {
+                                            if (item.IsDefault)
+                                            {
+                                                <li class="active"><img src="@item.Image" alt="" data-image="@item.Image"></li>
+                                            }
+                                            else
+                                            {
+                                                <li><img src="@item.Image" alt="" data-image="@item.Image"></li>
+                                            }
+
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 image_col order-lg-2 order-1">
+                                <div class="single_product_image">
+                                    <div class="single_product_image_background" style="background-image:url(@Model.ProductImages.FirstOrDefault(x =>x.IsDefault).Image)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="col-lg-5">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        <h2>@Model.Title</h2>
+                        <p>@Model.Description</p>
+                        <p>Lượt Truy Cập: <b>@Model.ViewCount</b></p>
+                    </div>
+                    @if (Model.PriceSale > 0)
+                    {
+                        <div class="original_price">Giá gốc: @WebSiteMCSport.Common.Common.FormatNumber(Model.Price, 0) đ</div>
+                        <div class="product_price"> Giá khuyến mãi: @WebSiteMCSport.Common.Common.FormatNumber(Model.PriceSale, 0) đ </div>
+                    }
+                    else
+                    {
+                        <div class="product_price">Giá: @WebSiteMCSport.Common.Common.FormatNumber(Model.Price, 0)</div>
+                    }
+                    <br />
+
+                    <div>
+                        Đánh giá:
+                        <ul class="star_rating">
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                        </ul>
+                    </div>
+                    @*<div class="product_color">
+                            <span>Select Color:</span>
+                            <ul>
+                                <li style="background: #e54e5d"></li>
+                                <li style="background: #252525"></li>
+                                <li style="background: #60b3f3"></li>
+                            </ul>
+                        </div>*@
+                    <!-- SỐ LƯỢNG -->
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center mb-2">
+                        <span>Số lượng:</span>
+                        <div class="quantity_selector d-flex align-items-center ms-2">
+                            <span class="minus btn btn-light p-1" style="width: 30px; text-align: center; cursor: pointer;">
+                                <i class="fa fa-minus"></i>
+                            </span>
+                            <input type="number" id="quantity_value" class="form-control mx-1 text-center"
+                                   value="1" min="1" style="width: 50px; height: 35px; padding: 0;" />
+                            <span class="plus btn btn-light p-1" style="width: 30px; text-align: center; cursor: pointer;">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- SIZE -->
+                    @{
+                        var categoryTitle = Model.ProductCategory?.Title?.ToLower() ?? "";
+                        var productName = Model.Title?.ToLower() ?? "";
+
+                        var isClothing = productName.Contains("áo") || productName.Contains("quần") || productName.Contains("đồ bộ");
+                        var isShoes = productName.Contains("giày");
+
+                        if (categoryTitle != "khác" && (isClothing || isShoes))
+                        {
+                            <div class="mb-3">
+                                <span class="me-2">Size:</span>
+                                <div id="productSizeGroup"
+                                     class="d-flex flex-wrap"
+                                     style="gap: 8px; max-width: 300px;">
+                                    @if (isShoes)
+                                    {
+                                        foreach (var size in Enumerable.Range(36, 10)) // 37 đến 45
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-outline-secondary size-btn"
+                                                    style="width: 50px;"
+                                                    data-size="@size">
+                                                @size
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var size in new[] { "S", "M", "L", "XL", "XXL", "3XL" })
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-outline-secondary size-btn"
+                                                    style="width: 50px;"
+                                                    data-size="@size">
+                                                @size
+                                            </button>
+                                        }
+                                    }
+                                </div>
+                                <input type="hidden" id="productSize" value="" />
+                            </div>
+                        }
+                    }
+
+                    <!-- NÚT HÀNH ĐỘNG -->
+                    <div class="d-flex flex-wrap align-items-center mt-3" style="gap: 12px;">
+                        <a href="#" class="btn btn-outline-dark btnAddToCart px-4" data-id="@Model.Id">Thêm vào giỏ hàng</a>
+                        <a href="#" class="btn btn-danger btnBuyNow px-4" data-id="@Model.Id">Mua ngay</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Tabs -->
+
+    <div class="tabs_section_container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="tabs_container">
+                        <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                            <li class="tab active" data-active-tab="tab_1"><span>Mô tả</span></li>
+                            @*<li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>*@
+                            <li class="tab" data-active-tab="tab_3"><span>Đánh giá</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <!-- Tab Description -->
+
+                    <div id="tab_1" class="tab_container active">
+                        <div class="row">
+                            @Html.Raw(Model.Detail)
+                        </div>
+                    </div>
+
+                    <!-- Tab Additional Info -->
+                    @*<div id="tab_2" class="tab_container">
+                            <div class="row">
+                                <div class="col additional_info_col">
+                                    <div class="tab_title additional_info_title">
+                                        <h4>Additional Information</h4>
+                                    </div>
+                                    <p>COLOR:<span>Gold, Red</span></p>
+                                    <p>SIZE:<span>L,M,XL</span></p>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <!-- Tab Reviews -->
+
+                    <div id="tab_3" class="tab_container">
+                        <div class="row">
+                            @foreach (var review in ViewBag.Reviews)
+                            {
+                                <div class="user_review_container d-flex flex-column flex-sm-row mb-3">
+                                    <div class="user">
+                                        <div class="user_pic">
+                                            <i class="fa fa-user-circle fa-2x text-secondary"></i>
+                                        </div>
+                                        <div class="user_rating">
+                                            <ul class="star_rating">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= review.Rating)
+                                                    {
+                                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="review pl-3">
+                                        <div class="review_date">@review.CreatedAt.ToString("dd/MM/yyyy")</div>
+                                        <div class="user_name font-weight-bold">@review.Name</div>
+                                        <p>@review.Message</p>
+                                    </div>
+                                </div>
+                            }
+
+
+
+                            <!-- Add Review -->
+
+                            <div class="col-lg-6 add_review_col">
+                                <div class="add_review">
+                                    @using (Html.BeginForm("SubmitReview", "Products", FormMethod.Post, new { id = "review_form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div>
+                                            <h1>Đánh giá</h1>
+                                            <input id="review_name" class="form_input input_name" type="text" name="Name" placeholder="Tên*" required />
+                                            <input id="review_email" class="form_input input_email" type="email" name="Email" placeholder="Email*" required />
+                                        </div>
+                                        <div>
+                                            <h1>Đánh giá của bạn:</h1>
+                                            <ul class="user_star_rating" id="star_rating">
+                                                <li data-value="1"><i class="fa fa-star-o"></i></li>
+                                                <li data-value="2"><i class="fa fa-star-o"></i></li>
+                                                <li data-value="3"><i class="fa fa-star-o"></i></li>
+                                                <li data-value="4"><i class="fa fa-star-o"></i></li>
+                                                <li data-value="5"><i class="fa fa-star-o"></i></li>
+                                            </ul>
+                                            <input type="hidden" name="Rating" id="rating_input" value="0" />
+                                            <textarea id="review_message" class="input_review" name="Message" placeholder="Đánh giá của bạn" rows="4" required></textarea>
+                                        </div>
+
+                                        @* Hidden ProductId *@
+                                        <input type="hidden" name="ProductId" value="@Model.Id" />
+
+                                        <div class="text-left text-sm-right">
+                                            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300">Gửi</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/single_custom.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- Cộng trừ số lượng ---
+            const minusBtn = document.querySelector(".minus");
+            const plusBtn = document.querySelector(".plus");
+            const quantityInput = document.getElementById("quantity_value");
+            const sizeInput = document.getElementById("productSize");
+
+            minusBtn?.addEventListener("click", function () {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) quantityInput.value = value - 1;
+            });
+
+            plusBtn?.addEventListener("click", function () {
+                let value = parseInt(quantityInput.value);
+                quantityInput.value = value + 1;
+            });
+
+            // --- Chọn size ---
+            document.querySelectorAll(".size-btn").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    if (sizeInput) {
+                        sizeInput.value = this.getAttribute("data-size");
+                    }
+                });
+            });
+
+            // --- Thêm vào giỏ hàng ---
+            const addToCartBtn = document.querySelector(".btnAddToCart");
+            addToCartBtn?.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const productId = this.getAttribute("data-id");
+                const quantity = parseInt(quantityInput.value);
+                const selectedSize = sizeInput ? sizeInput.value : null;
+
+                $.ajax({
+                    url: '/ShoppingCart/AddToCart',
+                    type: 'POST',
+                    data: {
+                        id: productId,
+                        quantity: quantity,
+                        size: selectedSize
+                    },
+                    success: function (res) {
+                        alert(res.msg);
+                    },
+                    error: function () {
+                        alert("Đã có lỗi xảy ra khi thêm vào giỏ hàng.");
+                    }
+                });
+            });
+
+            // --- Mua ngay ---
+            const buyNowBtn = document.querySelector(".btnBuyNow");
+            buyNowBtn?.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const productId = this.getAttribute("data-id");
+                const quantity = parseInt(quantityInput.value);
+                const selectedSize = sizeInput ? sizeInput.value : null;
+
+                $.ajax({
+                    url: '/ShoppingCart/AddToCart',
+                    type: 'POST',
+                    data: {
+                        id: productId,
+                        quantity: quantity,
+                        size: selectedSize
+                    },
+                    success: function (res) {
+                        window.location.href = '/thanh-toan';
+                    },
+                    error: function () {
+                        alert("Đã có lỗi xảy ra khi mua ngay.");
+                    }
+                });
+            });
+
+            // --- Chọn sao đánh giá ---
+            const stars = document.querySelectorAll("#star_rating li");
+            const ratingInput = document.getElementById("rating_input");
+
+            stars.forEach(star => {
+                star.addEventListener("click", function () {
+                    const rating = this.getAttribute("data-value");
+                    ratingInput.value = rating;
+
+                    // Reset sao
+                    stars.forEach(s => s.querySelector("i").classList.replace("fa-star", "fa-star-o"));
+
+                    // Tô sao đã chọn
+                    for (let i = 0; i < rating; i++) {
+                        stars[i].querySelector("i").classList.replace("fa-star-o", "fa-star");
+                    }
+                });
+            });
+        });
+    </script>
+
+}
+

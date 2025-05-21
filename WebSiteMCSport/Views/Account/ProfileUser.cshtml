@@ -1,0 +1,15 @@
+﻿@model WebSiteMCSport.Models.CustomerViewModel
+
+<div class="profile-container">
+    <div class="profile-card">
+        <img src="@Model.avarta" alt="Avatar" class="profile-avatar" />
+        <h2>@Model.CustomerName</h2>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>SĐT:</strong> @Model.Phone</p>
+        <p><strong>Địa chỉ:</strong> @Model.Address</p>
+        <div class="profile-actions">
+            <a href="@Url.Action("LichSuMuaHang", "DonHang")" class="btn">Lịch sử mua hàng</a>
+            <a href="@Url.Action("TheoDoiDon", "DonHang")" class="btn">Theo dõi đơn hàng</a>
+        </div>
+    </div>
+</div>a

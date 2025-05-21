@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebSiteMCSport.Models.EF.Category>
+
+@if (Model != null && Model.Any())
+{
+    <ul class="navbar_menu">
+        @foreach (var item in Model)
+        {
+            var url = "/" + item.Alias;
+
+            // Nếu là trang chủ
+            if (item.Alias.Equals("trang-chu", StringComparison.OrdinalIgnoreCase))
+            {
+                url = "/";
+            }
+
+            // Nếu có đường dẫn riêng
+            if (!string.IsNullOrEmpty(item.Link))
+            {
+                url = item.Link.StartsWith("/") ? item.Link : "/" + item.Link;
+            }
+
+            <li><a href="@url">@item.Title</a></li>
+        }
+    </ul>
+}

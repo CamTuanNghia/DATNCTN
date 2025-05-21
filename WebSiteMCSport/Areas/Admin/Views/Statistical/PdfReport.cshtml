@@ -1,0 +1,105 @@
+﻿@model List<WebSiteMCSport.Models.EF.BCDoanhThu>
+
+@{
+    Layout = null;
+    var fromDate = ViewBag.FromDate;
+    var toDate = ViewBag.ToDate;
+    decimal totalRevenue = Model.Sum(x => x.DoanhThu);
+    decimal totalProfit = Model.Sum(x => x.LoiNhuan);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Báo cáo doanh thu theo tháng</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .signature-section {
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .signature {
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h4>CỬA HÀNG: MC Sport</h4>
+        <p>ĐỊA CHỈ: .............................................</p>
+        <h2 class="header-title">BÁO CÁO DOANH THU THEO THÁNG</h2>
+        <p>TỪ NGÀY: @fromDate ĐẾN NGÀY: @toDate</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>THỜI GIAN</th>
+                <th>DOANH THU</th>
+                <th>LỢI NHUẬN</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@item.Date.ToString("dd-MM-yyyy")</td>
+                    <td>@string.Format("{0:N0}", item.DoanhThu)</td>
+                    <td>@string.Format("{0:N0}", item.LoiNhuan)</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2"><strong>TỔNG CỘNG:</strong></td>
+                <td><strong>@string.Format("{0:N0}", totalRevenue)</strong></td>
+                <td><strong>@string.Format("{0:N0}", totalProfit)</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="signature-section">
+        <div class="signature">
+            <p>NGƯỜI LẬP BIỂU</p>
+            <p>(Ký, họ tên)</p>
+        </div>
+        <div class="signature">
+            <p>Ngày.....tháng.....năm..........</p>
+            <p>KẾ TOÁN TRƯỞNG</p>
+            <p>(Ký, họ tên)</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
